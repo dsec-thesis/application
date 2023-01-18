@@ -1,9 +1,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.smart_parking_app">
+<uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="smart_parking_app"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCpF2WjQ_sH-PlIfJz70Z4apd25ab1L0g0"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
