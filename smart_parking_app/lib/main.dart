@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:provider/provider.dart';
-import 'package:smart_parking_app/pages/home/home_controller.dart';
+import 'package:smart_parking_app/pages/home/home_page.dart';
+import 'package:smart_parking_app/routes/pages.dart';
+import 'package:smart_parking_app/routes/routes.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -12,9 +12,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      initialRoute: Routes.SPLASH,
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      //home: MyHomePage(),
+      routes: appRoutes(),
     );
   }
 }
@@ -50,39 +52,39 @@ class _MyHomePageState extends State<MyHomePage> {
             Positioned(
               right: 20,
               top: 20,
-              child: Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    FloatingActionButton(
-                      mini: true,
-                      elevation: 0,
-                      backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                      child: const Icon(
-                        Icons.search,
-                        size: 20,
-                        color: Colors.blueAccent,
-                      ),
-                      onPressed: () {
-                        // handle search functionality
-                      },
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  FloatingActionButton(
+                    heroTag: null,
+                    mini: true,
+                    elevation: 0,
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    child: const Icon(
+                      Icons.search,
+                      size: 20,
+                      color: Colors.blueAccent,
                     ),
-                    SizedBox(width: 10),
-                    FloatingActionButton(
-                      mini: true,
-                      elevation: 0,
-                      backgroundColor: Color.fromARGB(255, 255, 255, 255),
-                      child: const Icon(
-                        Icons.notifications,
-                        size: 20,
-                        color: Colors.blueAccent,
-                      ),
-                      onPressed: () {
-                        // handle search functionality
-                      },
-                    )
-                  ],
-                ),
+                    onPressed: () {
+                      // handle search functionality
+                    },
+                  ),
+                  const SizedBox(width: 10),
+                  FloatingActionButton(
+                    heroTag: null,
+                    mini: true,
+                    elevation: 0,
+                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                    child: const Icon(
+                      Icons.notifications,
+                      size: 20,
+                      color: Colors.blueAccent,
+                    ),
+                    onPressed: () {
+                      // handle search functionality
+                    },
+                  )
+                ],
               ),
             ),
           ],
@@ -114,41 +116,6 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.person),
             label: 'Profile',
           )
-        ],
-      ),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return ChangeNotifierProvider<HomeController>(
-      create: ((context) {
-        final controller = HomeController();
-        controller.onMarkerTap.listen((String id) {
-          print("go to $id");
-        });
-        return controller;
-      }),
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: Consumer<HomeController>(
-              builder: ((context, controller, child) => GoogleMap(
-                    markers: controller.markers,
-                    initialCameraPosition: controller.initialCameraPosition,
-                    zoomControlsEnabled: false,
-                    onTap: controller.onTap,
-                    onLongPress: (position) {
-                      print(position);
-                    },
-                  )),
-            ),
-          ),
         ],
       ),
     );

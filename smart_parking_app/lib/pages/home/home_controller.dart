@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart' show ChangeNotifier;
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomeController extends ChangeNotifier {
@@ -10,10 +11,50 @@ class HomeController extends ChangeNotifier {
   final _markersController = StreamController<String>.broadcast();
   Stream<String> get onMarkerTap => _markersController.stream;
 
-  final initialCameraPosition = const CameraPosition(
-    target: LatLng(-32.9433402, -60.6443232),
-    zoom: 16,
-  );
+  Position? _initialPosition;
+  CameraPosition get initialCameraPosition => CameraPosition(
+        target: LatLng(
+          _initialPosition!.latitude,
+          _initialPosition!.longitude,
+        ),
+        zoom: 16,
+      );
+  Position? get initialPosition => _initialPosition;
+
+  bool _loading = true;
+  bool get loading => _loading;
+  late bool _gpsEnabled;
+  bool get gpsEnabled => _gpsEnabled;
+  StreamSubscription? _gpsSubscription;
+
+  HomeController() {
+    _init();
+  }
+
+  Future<void> turnOnGps() => Geolocator.openLocationSettings();
+
+  Future<void> _init() async {
+    _gpsEnabled = await Geolocator.isLocationServiceEnabled();
+    _loading = false;
+    _gpsSubscription = Geolocator.getServiceStatusStream().listen(
+      (status) async {
+        _gpsEnabled = status == ServiceStatus.enabled;
+        print("_gpsEnables $_gpsEnabled");
+        await _getInitialPosition();
+        notifyListeners();
+      },
+    );
+    await _getInitialPosition();
+    //_initLocationUpdate();
+    notifyListeners();
+  }
+
+  Future<void> _getInitialPosition() async {
+    if (_gpsEnabled && _initialPosition == null) {
+      _initialPosition = await Geolocator.getCurrentPosition();
+      print("posicion inicial: $initialPosition");
+    }
+  }
 
   void onTap(LatLng position) {
     final id = _markers.length.toString();
@@ -35,6 +76,7 @@ class HomeController extends ChangeNotifier {
 
   @override
   void dispose() {
+    _gpsSubscription?.cancel();
     _markersController.close();
     super.dispose();
   }
