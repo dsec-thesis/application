@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:smart_parking_app/pages/home/home_page.dart';
 import 'package:smart_parking_app/routes/pages.dart';
 import 'package:smart_parking_app/routes/routes.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
+  await FlutterConfig.loadEnvVariables();
   runApp(const MyApp());
 }
 

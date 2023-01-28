@@ -75,4 +75,19 @@ Official docs: https://developer.android.com/training/location/permissions#foreg
 </manifest>
 ```
 
+## Environment Variable Management
+
+This project includes several libraries to handle environment variables in a safe and efficient way. These libraries include:
+
+- **flutter_config**: A library that allows for configuration of environment variables in a separate file, making it easier to manage and avoiding exposing them in the source code.
+
+- **envied_generator**: A code generator that helps automate the process of replacing environment variables in the AndroidManifest.xml and gradle configuration file.
+
+- **envied**: A library that provides an interface for accessing environment variables in the source code.
+
+- **build_runner**: A tool used to run code generators included in the project.
+
+In addition, this configuration has been integrated in the AndroidManifest.xml file so that the ANDROID_GEOLOCATION_KEY environment variable is accessible from the code. Also, a gradle file is added to configure the flutter_config library and be able to access the environment variables.
+
+
 Useful material: https://www.youtube.com/watch?v=uXcliVLGzOE&list=PLV0nOzdUS5XveyNN0xaASjazuyHNJzud-&index=13&ab_channel=DarwinMorocho
