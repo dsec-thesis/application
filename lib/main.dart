@@ -52,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
               index: _currentIndex,
               children: _pages,
             ),
+            /*
             Positioned(
               right: 20,
               top: 20,
@@ -90,6 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
+            */
           ],
         ),
       ),
