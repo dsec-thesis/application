@@ -104,8 +104,19 @@ This project includes several libraries to handle environment variables in a saf
 
 - **build_runner**: A tool used to run code generators included in the project.
 
+- Usefull material for this section:
+  - https://codewithandrea.com/articles/flutter-api-keys-dart-define-env-files/#enter-envied
+  - https://dev.to/nombrekeff/handle-environment-variables-in-flutter-llf-8-366j
+  
 
 In addition, this configuration has been integrated in the AndroidManifest.xml file so that the ANDROID_GEOLOCATION_KEY environment variable is accessible from the code. Also, a gradle file is added to configure the flutter_config library and be able to access the environment variables.
 
 
 Useful material: https://www.youtube.com/watch?v=uXcliVLGzOE&list=PLV0nOzdUS5XveyNN0xaASjazuyHNJzud-&index=13&ab_channel=DarwinMorocho
+
+--- 
+# Onboarding page
+- ShardPrerences support was integrated into the application to keep track of whether or not the user has completed the onboarding process and show it only once.
+  - https://pub.dev/packages/shared_preferences
+
+- A new controller was created for the onboarding page. TODO: can be improved and replaced

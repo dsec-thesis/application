@@ -1,8 +1,10 @@
 // ignore_for_file: prefer_const_constructors, camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:smart_parking_app/pages/onboarding/onboarding_controller.dart';
 import 'package:smart_parking_app/utils/tools.dart';
 
+import '../../routes/routes.dart';
 import 'onboarding_contents.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -14,16 +16,19 @@ class OnBoardingScreen extends StatefulWidget {
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
   late PageController _pageController;
+  late OnBoardingController _onBoardingController;
 
   @override
   void dispose() {
     _pageController.dispose();
+    _onBoardingController.dispose();
     super.dispose();
   }
 
   @override
   void initState() {
     _pageController = PageController();
+    _onBoardingController = OnBoardingController();
     super.initState();
   }
 
@@ -125,7 +130,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       ? Padding(
                           padding: const EdgeInsets.all(30),
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              _onBoardingController.setOnBoardingProcess();
+                              Navigator.pushReplacementNamed(
+                                  context, Routes.HOME);
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.black,
                               shape: RoundedRectangleBorder(
