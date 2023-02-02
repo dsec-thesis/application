@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:smart_parking_app/pages/onboarding/onboarding_controller.dart';
 import 'package:smart_parking_app/pages/request_permission/request_permission_controller.dart';
 
 import '../../routes/routes.dart';
@@ -16,6 +17,7 @@ class RequestPermissionPage extends StatefulWidget {
 class _RequestPermissionPageState extends State<RequestPermissionPage>
     with WidgetsBindingObserver {
   final _controller = RequestPermissionController(Permission.locationWhenInUse);
+  final _preferences = OnBoardingController();
   late StreamSubscription _subscription;
   bool _fromSettings = false;
 
@@ -28,7 +30,12 @@ class _RequestPermissionPageState extends State<RequestPermissionPage>
       (status) {
         switch (status) {
           case PermissionStatus.granted:
-            _goToHome();
+            if (_preferences.isOnbonardingComplete) {
+              _goToHome();
+              break;
+            }
+
+            _goToOnboarding();
             break;
           case PermissionStatus.permanentlyDenied:
             showDialog(
@@ -74,11 +81,16 @@ class _RequestPermissionPageState extends State<RequestPermissionPage>
     Navigator.pushReplacementNamed(context, Routes.HOME);
   }
 
+  void _goToOnboarding() {
+    Navigator.pushReplacementNamed(context, Routes.ONBOARDING);
+  }
+
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     _subscription.cancel();
     _controller.dispose();
+    _preferences.dispose();
     super.dispose();
   }
 
