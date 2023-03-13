@@ -1,10 +1,11 @@
 // ignore_for_file: prefer_const_constructors, camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:smart_parking_app/pages/login/login_page.dart';
 import 'package:smart_parking_app/pages/onboarding/onboarding_controller.dart';
 import 'package:smart_parking_app/utils/tools.dart';
 
-import '../../routes/routes.dart';
 import 'onboarding_contents.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -132,8 +133,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           child: ElevatedButton(
                             onPressed: () {
                               _onBoardingController.setOnBoardingProcess();
-                              Navigator.pushReplacementNamed(
-                                  context, Routes.HOME);
+                              Get.to((() => LoginPage()));
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.black,
