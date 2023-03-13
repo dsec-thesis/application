@@ -118,7 +118,7 @@ class _RequestPermissionPageState extends State<RequestPermissionPage>
               onPressed: (() {
                 _controller.request();
               }),
-              child: Text("Allow")),
+              child: const Text("Allow")),
         ),
       ),
     );

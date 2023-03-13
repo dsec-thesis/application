@@ -6,7 +6,6 @@ import 'package:smart_parking_app/pages/login/login_page.dart';
 import 'package:smart_parking_app/pages/onboarding/onboarding_controller.dart';
 import 'package:smart_parking_app/utils/tools.dart';
 
-import '../../routes/routes.dart';
 import 'onboarding_contents.dart';
 
 class OnBoardingScreen extends StatefulWidget {
