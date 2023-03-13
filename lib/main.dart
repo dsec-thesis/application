@@ -1,7 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_config/flutter_config.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_parking_app/pages/home/home_page.dart';
+import 'package:smart_parking_app/pages/login/auth_controller.dart';
+import 'package:smart_parking_app/pages/login/login_page.dart';
 import 'package:smart_parking_app/routes/pages.dart';
 import 'package:smart_parking_app/routes/routes.dart';
 import 'package:wakelock/wakelock.dart';
@@ -14,7 +18,6 @@ void main() async {
     print("activating wakelock in debug");
     Wakelock.enable();
   }
-
   runApp(const MyApp());
 }
 
@@ -23,10 +26,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       initialRoute: Routes.SPLASH,
       debugShowCheckedModeBanner: false,
-      //home: MyHomePage(),
       routes: appRoutes(),
     );
   }
@@ -45,8 +47,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final List<Widget> _pages = [
     const HomePage(),
-    const SavesPage(),
-    const BookedPage(),
+    LoginPage(),
+    BookedPage(),
     const ProfilePage(),
   ];
 
@@ -147,12 +149,59 @@ class SavesPage extends StatelessWidget {
 }
 
 class BookedPage extends StatelessWidget {
-  const BookedPage({super.key});
+  final AuthController _authController = Get.find();
+
+  BookedPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Booked Page'),
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
+        child: GestureDetector(
+          onTap: () async {
+            await _authController.google_signout();
+            if (_authController.loggedIn) {
+              print("inicio exitoso");
+              Get.offAll(() => LoginPage());
+            } else {
+              print("inicio fallido");
+            }
+          },
+          child: Container(
+            height: 64,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(32),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  blurRadius: 10,
+                  offset: const Offset(0, 5),
+                ),
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/varios/google.png',
+                  height: 50,
+                ),
+                const SizedBox(width: 16),
+                Text(
+                  'Logout Google',
+                  style: GoogleFonts.poppins(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
