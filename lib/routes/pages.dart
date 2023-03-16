@@ -11,7 +11,7 @@ Map<String, Widget Function(BuildContext)> appRoutes() {
     Routes.SPLASH: (context) => const SplashPage(),
     Routes.ONBOARDING: (context) => const OnBoardingScreen(),
     Routes.PERMISSION: (context) => const RequestPermissionPage(),
-    Routes.HOME: (context) => const MyHomePage(),
+    Routes.HOME: (context) => const MainComponent(),
     Routes.LOGIN: (context) => LoginPage()
   };
 }

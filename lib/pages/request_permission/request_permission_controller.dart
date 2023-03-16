@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../../utils/tools.dart';
+
 class RequestPermissionController {
   final Permission _locationPermission;
 
@@ -16,7 +18,7 @@ class RequestPermissionController {
 
   Future<void> request() async {
     final status = await _locationPermission.request();
-    print("estado de permisos $status");
+    logger.d("estado de permisos $status");
     _notify(status);
   }
 

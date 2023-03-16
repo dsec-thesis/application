@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_parking_app/main.dart';
 
+import '../../utils/tools.dart';
 import 'auth_controller.dart';
 
 class LoginPage extends StatelessWidget {
@@ -39,7 +40,7 @@ class LoginPage extends StatelessWidget {
                       fontSize: 18,
                     ),
                   ),
-                  SizedBox(height: 24),
+                  const SizedBox(height: 24),
                   Text(
                     'La solución definitiva al problema de buscar estacionamiento',
                     style: GoogleFonts.poppins(
@@ -58,10 +59,10 @@ class LoginPage extends StatelessWidget {
                 onTap: () async {
                   await _authController.handleLoginLogout();
                   if (_authController.loggedIn) {
-                    print("inicio exitoso");
-                    Get.offAll(() => const MyHomePage());
+                    logger.d("inicio exitoso");
+                    Get.offAll(() => const MainComponent());
                   } else {
-                    print("inicio fallido");
+                    logger.d("inicio fallido");
                     // Mostrar un mensaje de error
                   }
                 },
@@ -74,7 +75,7 @@ class LoginPage extends StatelessWidget {
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.2),
                         blurRadius: 10,
-                        offset: Offset(0, 5),
+                        offset: const Offset(0, 5),
                       ),
                     ],
                   ),
@@ -85,7 +86,7 @@ class LoginPage extends StatelessWidget {
                         'assets/images/varios/google.png',
                         height: 50,
                       ),
-                      SizedBox(width: 16),
+                      const SizedBox(width: 16),
                       Text(
                         'Ingresar con Google',
                         style: GoogleFonts.poppins(

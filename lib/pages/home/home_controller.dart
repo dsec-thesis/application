@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart' show ChangeNotifier;
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:smart_parking_app/utils/tools.dart';
 
 class HomeController extends ChangeNotifier {
   final Map<MarkerId, Marker> _markers = {};
@@ -39,7 +40,7 @@ class HomeController extends ChangeNotifier {
     _gpsSubscription = Geolocator.getServiceStatusStream().listen(
       (status) async {
         _gpsEnabled = status == ServiceStatus.enabled;
-        print("_gpsEnables $_gpsEnabled");
+        logger.d("_gpsEnables $_gpsEnabled");
         await _getInitialPosition();
         notifyListeners();
       },
@@ -52,7 +53,7 @@ class HomeController extends ChangeNotifier {
   Future<void> _getInitialPosition() async {
     if (_gpsEnabled && _initialPosition == null) {
       _initialPosition = await Geolocator.getCurrentPosition();
-      print("posicion inicial: $initialPosition");
+      logger.d("posicion inicial: $initialPosition");
     }
   }
 
@@ -67,7 +68,7 @@ class HomeController extends ChangeNotifier {
       },
       draggable: true,
       onDragEnd: (value) {
-        print("new position $value");
+        logger.v("new position $value");
       },
     );
     _markers[markerId] = marker;
