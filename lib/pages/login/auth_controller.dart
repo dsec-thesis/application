@@ -2,6 +2,8 @@ import 'package:get/state_manager.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../utils/tools.dart';
+
 class AuthController extends GetxController {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   late final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -15,13 +17,14 @@ class AuthController extends GetxController {
     final SharedPreferences prefs = await _prefs;
 
     if (!isSignedIn) {
-      print("No se encuentra logeado, por lo que no se debe llamar al metodo");
+      logger
+          .d("No se encuentra logeado, por lo que no se debe llamar al metodo");
       await prefs.setBool('loggedIn', false);
     }
 
-    print("Logout en curso");
+    logger.d("Logout en curso");
     final status = await googleSignIn.disconnect();
-    print(status);
+    logger.d(status);
   }
 
   Future<void> handleLoginLogout() async {

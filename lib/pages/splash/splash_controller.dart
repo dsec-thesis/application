@@ -5,6 +5,8 @@ import 'package:smart_parking_app/pages/login/auth_controller.dart';
 import 'package:smart_parking_app/pages/onboarding/onboarding_controller.dart';
 import 'package:smart_parking_app/routes/routes.dart';
 
+import '../../utils/tools.dart';
+
 class SplashController extends ChangeNotifier {
   final Permission _locationPermission;
   final _preferences = OnBoardingController();
@@ -21,16 +23,16 @@ class SplashController extends ChangeNotifier {
     final isLoginIn = _login.loggedIn;
 
     if (!isGranted) {
-      print("rutas a permisos");
+      logger.d("rutas a permisos");
       _routeName = Routes.PERMISSION;
     } else if (!isOnboardingComplete) {
-      print("rutas a onboarding: $isOnboardingComplete");
+      logger.d("rutas a onboarding: $isOnboardingComplete");
       _routeName = Routes.ONBOARDING;
     } else if (!isLoginIn) {
-      print("necesita logearse");
+      logger.d("necesita logearse");
       _routeName = Routes.LOGIN;
     } else {
-      print("rutas a home");
+      logger.d("rutas a home");
       _routeName = Routes.HOME;
     }
     notifyListeners();

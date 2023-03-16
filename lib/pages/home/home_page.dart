@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../../utils/tools.dart';
 import 'home_controller.dart';
 
 class HomePage extends StatelessWidget {
@@ -13,7 +14,7 @@ class HomePage extends StatelessWidget {
       create: ((context) {
         final controller = HomeController();
         controller.onMarkerTap.listen((String id) {
-          print("go to $id");
+          logger.d("go to $id");
         });
         return controller;
       }),
@@ -44,7 +45,7 @@ class HomePage extends StatelessWidget {
                       zoomControlsEnabled: false,
                       onTap: controller.onTap,
                       onLongPress: (position) {
-                        print(position);
+                        logger.d(position);
                       },
                     );
                   }),

@@ -8,6 +8,7 @@ import 'package:smart_parking_app/pages/login/auth_controller.dart';
 import 'package:smart_parking_app/pages/login/login_page.dart';
 import 'package:smart_parking_app/routes/pages.dart';
 import 'package:smart_parking_app/routes/routes.dart';
+import 'package:smart_parking_app/utils/tools.dart';
 import 'package:wakelock/wakelock.dart';
 
 void main() async {
@@ -18,6 +19,7 @@ void main() async {
     print("activating wakelock in debug");
     Wakelock.enable();
   }
+  initializateLogger();
   runApp(const MyApp());
 }
 
@@ -34,15 +36,15 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+class MainComponent extends StatefulWidget {
+  const MainComponent({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _MyHomePageState createState() => _MyHomePageState();
+  _MainComponentState createState() => _MainComponentState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MainComponentState extends State<MainComponent> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
@@ -52,9 +54,16 @@ class _MyHomePageState extends State<MyHomePage> {
     const ProfilePage(),
   ];
 
+  void setIndex(index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Stack(
           children: <Widget>[
@@ -62,76 +71,65 @@ class _MyHomePageState extends State<MyHomePage> {
               index: _currentIndex,
               children: _pages,
             ),
-            /*
-            Positioned(
-              right: 20,
-              top: 20,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  FloatingActionButton(
-                    heroTag: null,
-                    mini: true,
-                    elevation: 0,
-                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                    child: const Icon(
-                      Icons.search,
-                      size: 20,
-                      color: Colors.blueAccent,
-                    ),
-                    onPressed: () {
-                      // handle search functionality
-                    },
-                  ),
-                  const SizedBox(width: 10),
-                  FloatingActionButton(
-                    heroTag: null,
-                    mini: true,
-                    elevation: 0,
-                    backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-                    child: const Icon(
-                      Icons.notifications,
-                      size: 20,
-                      color: Colors.blueAccent,
-                    ),
-                    onPressed: () {
-                      // handle search functionality
-                    },
-                  )
-                ],
-              ),
-            ),
-            */
           ],
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.red,
-        unselectedItemColor: Colors.grey,
-        currentIndex: _currentIndex,
-        onTap: (int index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.moving),
+        onPressed: () {},
+      ),
+      extendBody: true,
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        clipBehavior: Clip.none,
+        notchMargin: 8.0,
+        child: SizedBox(
+          height: 50,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.home,
+                  color: _currentIndex == 0 ? Colors.blueGrey : Colors.grey,
+                ),
+                onPressed: () {
+                  setIndex(0);
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.wallet_outlined,
+                  color: _currentIndex == 1 ? Colors.blueGrey : Colors.grey,
+                ),
+                onPressed: () {
+                  setIndex(1);
+                },
+              ),
+              const SizedBox(width: 48.0),
+              IconButton(
+                icon: Icon(
+                  Icons.bookmark,
+                  color: _currentIndex == 2 ? Colors.blueGrey : Colors.grey,
+                ),
+                onPressed: () {
+                  setIndex(2);
+                },
+              ),
+              IconButton(
+                icon: Icon(
+                  Icons.settings,
+                  color: _currentIndex == 3 ? Colors.blueGrey : Colors.grey,
+                ),
+                onPressed: () {
+                  setIndex(3);
+                },
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.save),
-            label: 'Saves',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bookmark),
-            label: 'Booked',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          )
-        ],
+        ),
       ),
     );
   }
@@ -162,10 +160,10 @@ class BookedPage extends StatelessWidget {
           onTap: () async {
             await _authController.google_signout();
             if (_authController.loggedIn) {
-              print("inicio exitoso");
+              logger.d("inicio exitoso");
               Get.offAll(() => LoginPage());
             } else {
-              print("inicio fallido");
+              logger.d("inicio fallido");
             }
           },
           child: Container(
