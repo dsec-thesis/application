@@ -77,7 +77,9 @@ class _MainComponentState extends State<MainComponent> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.moving),
-        onPressed: () {},
+        onPressed: () {
+          logger.i("boton presionado");
+        },
       ),
       extendBody: true,
       bottomNavigationBar: BottomAppBar(

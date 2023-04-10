@@ -12,6 +12,7 @@ class AuthController extends GetxController {
   RxBool isSignedIn = false.obs;
   bool get loggedIn => _loggedIn.value;
 
+  // ignore: non_constant_identifier_names
   Future<void> google_signout() async {
     bool isSignedIn = await googleSignIn.isSignedIn();
     final SharedPreferences prefs = await _prefs;
