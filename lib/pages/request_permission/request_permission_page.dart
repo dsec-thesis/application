@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:smart_parking_app/pages/login/auth_controller.dart';
+import 'package:smart_parking_app/controllers/auth_controller.dart';
 import 'package:smart_parking_app/pages/login/login_page.dart';
 import 'package:smart_parking_app/pages/onboarding/onboarding_controller.dart';
 import 'package:smart_parking_app/pages/request_permission/request_permission_controller.dart';
@@ -21,7 +21,7 @@ class _RequestPermissionPageState extends State<RequestPermissionPage>
     with WidgetsBindingObserver {
   final _controller = RequestPermissionController(Permission.locationWhenInUse);
   final _preferences = OnBoardingController();
-  final AuthController _auth = Get.find();
+  final AppUserController _auth = Get.find();
   late StreamSubscription _subscription;
   bool _fromSettings = false;
 
@@ -37,16 +37,10 @@ class _RequestPermissionPageState extends State<RequestPermissionPage>
             if (!_preferences.isOnbonardingComplete) {
               _goToOnboarding();
               break;
-            } else if (!_auth.loggedIn) {
+            } else if (!_auth.isSignedIn.value) {
               Get.to(LoginPage());
               break;
             }
-            /*
-            if (_preferences.isOnbonardingComplete && _auth.loggedIn) {
-              _goToHome();
-              break;
-            }
-            */
             _goToHome();
             break;
           case PermissionStatus.permanentlyDenied:

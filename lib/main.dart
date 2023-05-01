@@ -4,12 +4,13 @@ import 'package:flutter_config/flutter_config.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_parking_app/pages/home/home_page.dart';
-import 'package:smart_parking_app/pages/login/auth_controller.dart';
 import 'package:smart_parking_app/pages/login/login_page.dart';
 import 'package:smart_parking_app/routes/pages.dart';
 import 'package:smart_parking_app/routes/routes.dart';
 import 'package:smart_parking_app/utils/tools.dart';
 import 'package:wakelock/wakelock.dart';
+
+import 'controllers/auth_controller.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
@@ -51,7 +52,7 @@ class _MainComponentState extends State<MainComponent> {
     const HomePage(),
     LoginPage(),
     BookedPage(),
-    const ProfilePage(),
+    ProfilePage(),
   ];
 
   void setIndex(index) {
@@ -149,7 +150,8 @@ class SavesPage extends StatelessWidget {
 }
 
 class BookedPage extends StatelessWidget {
-  final AuthController _authController = Get.find();
+  //final AuthController _authController = Get.find();
+  final AppUserController _authController = Get.find();
 
   BookedPage({super.key});
 
@@ -160,12 +162,12 @@ class BookedPage extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
         child: GestureDetector(
           onTap: () async {
-            await _authController.google_signout();
-            if (_authController.loggedIn) {
-              logger.d("inicio exitoso");
+            await _authController.signOutCurrentUser();
+            if (!_authController.isSignedIn.value) {
+              //logger.d("inicio exitoso");
               Get.offAll(() => LoginPage());
             } else {
-              logger.d("inicio fallido");
+              logger.d("there was an issue in the logout process");
             }
           },
           child: Container(
@@ -207,12 +209,14 @@ class BookedPage extends StatelessWidget {
 }
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({super.key});
+  ProfilePage({super.key});
+  final AppUserController _authController = Get.find();
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Profile Page'),
+    return ElevatedButton(
+      onPressed: () => _authController.fetchCognitoAuthSession(),
+      child: const Text('Test API'),
     );
   }
 }

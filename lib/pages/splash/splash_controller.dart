@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart' show ChangeNotifier;
 import 'package:get/get.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:smart_parking_app/pages/login/auth_controller.dart';
+import 'package:smart_parking_app/controllers/auth_controller.dart';
 import 'package:smart_parking_app/pages/onboarding/onboarding_controller.dart';
 import 'package:smart_parking_app/routes/routes.dart';
 
@@ -10,7 +10,8 @@ import '../../utils/tools.dart';
 class SplashController extends ChangeNotifier {
   final Permission _locationPermission;
   final _preferences = OnBoardingController();
-  final AuthController _login = Get.put(AuthController());
+  //final AuthController _login = Get.put(AuthController());
+  final AppUserController _login = Get.put(AppUserController());
   String? _routeName;
 
   String? get routeName => _routeName;
@@ -20,7 +21,7 @@ class SplashController extends ChangeNotifier {
   void checkPermission() async {
     final isGranted = await _locationPermission.isGranted;
     final isOnboardingComplete = await _preferences.onboardingComplete();
-    final isLoginIn = _login.loggedIn;
+    final isLoginIn = _login.isSignedIn.value;
 
     if (!isGranted) {
       logger.d("rutas a permisos");
