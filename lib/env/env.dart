@@ -10,4 +10,10 @@ abstract class Env {
   static final awsAccessKeyId = _Env.awsAccessKeyId;
   @EnviedField(varName: 'AWS_SECRET_KEY_ID', obfuscate: true)
   static final awsSecretKeyId = _Env.awsSecretKeyId;
+  @EnviedField(varName: 'AWS_POOL_ID', obfuscate: true)
+  static final awsPoolId = _Env.awsPoolId;
+  @EnviedField(varName: 'AWS_APP_CLIENT_ID', obfuscate: true)
+  static final awsAppClientId = _Env.awsAppClientId;
+  @EnviedField(varName: 'AWS_WEB_DOMAIN', obfuscate: true)
+  static final awsWebDomain = _Env.awsWebDomain;
 }
