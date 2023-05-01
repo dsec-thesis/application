@@ -3,11 +3,11 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_parking_app/main.dart';
 
+import '../../controllers/auth_controller.dart';
 import '../../utils/tools.dart';
-import 'auth_controller.dart';
 
 class LoginPage extends StatelessWidget {
-  final AuthController _authController = Get.find();
+  final AppUserController _appUserController = Get.find();
 
   LoginPage({super.key});
 
@@ -57,12 +57,12 @@ class LoginPage extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
               child: GestureDetector(
                 onTap: () async {
-                  await _authController.handleLoginLogout();
-                  if (_authController.loggedIn) {
-                    logger.d("inicio exitoso");
+                  await _appUserController.handleLoginLogout();
+                  if (_appUserController.isSignedIn.value) {
+                    logger.d("inicio con Amplify exitoso");
                     Get.offAll(() => const MainComponent());
                   } else {
-                    logger.d("inicio fallido");
+                    logger.d("inicio con Amplify fallido");
                     // Mostrar un mensaje de error
                   }
                 },
