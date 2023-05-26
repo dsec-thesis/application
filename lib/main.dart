@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_config/flutter_config.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -208,15 +209,44 @@ class BookedPage extends StatelessWidget {
   }
 }
 
-class ProfilePage extends StatelessWidget {
-  ProfilePage({super.key});
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
+  @override
+  // ignore: library_private_types_in_public_api
+  _ProfilePageState createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  String token = '';
   final AppUserController _authController = Get.find();
+
+  void llenarTexto() async {
+    token = await _authController.fetchCognitoAuthSession();
+    setState(() {
+      token = token;
+      Clipboard.setData(ClipboardData(text: token));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () => _authController.fetchCognitoAuthSession(),
-      child: const Text('Test API'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Copy JWT for debug'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            ElevatedButton(
+              onPressed: llenarTexto,
+              child: const Text('Copy JWT'),
+            ),
+            const SizedBox(height: 20),
+            SelectableText(token),
+          ],
+        ),
+      ),
     );
   }
 }

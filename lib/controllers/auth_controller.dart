@@ -120,15 +120,15 @@ class AppUserController extends GetxController {
     logger.i(response.body);
   }
 
-  Future<void> fetchCognitoAuthSession() async {
+  Future<String> fetchCognitoAuthSession() async {
     try {
       final cognitoPlugin =
           Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
       final result = await cognitoPlugin.fetchAuthSession();
-      testAPI(_apiUrl, result.userPoolTokensResult.value.accessToken.raw);
-      // safePrint("Current user's userPoolTokensResult: ${result.userPoolTokensResult.value.}");
+      return result.userPoolTokensResult.value.accessToken.toJson();
     } on AuthException catch (e) {
       safePrint('Error retrieving auth session: ${e.message}');
+      return "error";
     }
   }
 }
