@@ -1,16 +1,21 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:smart_parking_app/utils/tools.dart';
 
+import '../pages/book/book_component.dart';
+
 class MarkersProvider extends GetxController {
   final String _apiKey;
+  final BuildContext context;
 
   MarkersProvider(
     this._apiKey,
+    this.context,
   );
 
   static MarkersProvider get to => Get.find();
@@ -36,6 +41,7 @@ class MarkersProvider extends GetxController {
     final data = json.decode(response.body);
     final List<dynamic> results = data['results'];
     final List<Map<String, dynamic>> estacionamientos = [];
+    print(data['results']);
 
     for (final result in results) {
       final name = result['name'];
@@ -58,6 +64,7 @@ class MarkersProvider extends GetxController {
       }
     }
     logger.i("la cantidad de estacionientos es: ${estacionamientos.length}");
+    logger.i(estacionamientos);
     return estacionamientos;
   }
 
@@ -76,6 +83,23 @@ class MarkersProvider extends GetxController {
           title: parking['nombre'],
           snippet:
               'Disponibilidad: ${parking['plazas_ocupadas']}/${parking['plazas_totales']}',
+          onTap: () {
+            showModalBottomSheet(
+                context: context,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(25.0),
+                  ),
+                ),
+                builder: (BuildContext context) {
+                  return BookInfoSheet(
+                    title: "Detalle",
+                    parkingName: parking['nombre'],
+                    image: "assets/cochera.jpg",
+                  );
+                });
+            logger.i("infossssss");
+          },
         ),
       );
       newMarkers.putIfAbsent(markerId, () => marker);

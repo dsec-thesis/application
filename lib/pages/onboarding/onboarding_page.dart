@@ -61,8 +61,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    double width = SizeConfig.screenW!;
-    double height = SizeConfig.screenH!;
+    double width = SizeConfig.screenWidth;
+    double height = SizeConfig.screenHeight;
 
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 255, 255, 255),

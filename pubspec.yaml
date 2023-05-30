@@ -41,6 +41,7 @@ dependencies:
   flutter_appauth: ^4.2.1
   flutter_config: ^2.0.0
   flutter_secure_storage: ^8.0.0
+  flutter_svg: ^2.0.5
   geolocator: ^9.0.2
   get: ^4.6.5
   get_storage: ^2.1.1
@@ -77,6 +78,10 @@ flutter:
   assets:
     - assets/images/onboarding/
     - assets/images/varios/
+    - assets/images/
+    - assets/
+    - assets/images/coche.jpg
+    - assets/icons/
     - lib/controllers/amplifyconfiguration.dart
   # To add assets to your application, add an assets section, like this:
   # assets:

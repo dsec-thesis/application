@@ -136,7 +136,7 @@ class _MapsPageState extends State<MapsPage> {
   void initState() {
     super.initState();
     _futureProvider = _initPlaceProvider(widget.apiKey);
-    markerProvider = Get.put(MarkersProvider(widget.apiKey));
+    markerProvider = Get.put(MarkersProvider(widget.apiKey, context));
   }
 
   @override

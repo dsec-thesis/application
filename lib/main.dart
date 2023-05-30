@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_parking_app/pages/home/home_page.dart';
 import 'package:smart_parking_app/pages/login/login_page.dart';
+import 'package:smart_parking_app/pages/profile/general_page/profile_screen.dart';
 import 'package:smart_parking_app/routes/pages.dart';
 import 'package:smart_parking_app/routes/routes.dart';
 import 'package:smart_parking_app/utils/tools.dart';
@@ -52,7 +53,7 @@ class _MainComponentState extends State<MainComponent> {
     const HomePage(),
     LoginPage(),
     BookedPage(),
-    ProfilePage(),
+    ProfileScreen(),
   ];
 
   void setIndex(index) {
@@ -208,15 +209,15 @@ class BookedPage extends StatelessWidget {
   }
 }
 
-class ProfilePage extends StatelessWidget {
-  ProfilePage({super.key});
-  final AppUserController _authController = Get.find();
+// class ProfilePage extends StatelessWidget {
+//   ProfilePage({super.key});
+//   final AppUserController _authController = Get.find();
 
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () => _authController.fetchCognitoAuthSession(),
-      child: const Text('Test API'),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return ElevatedButton(
+//       onPressed: () => _authController.fetchCognitoAuthSession(),
+//       child: const Text('Test API'),
+//     );
+//   }
+// }
