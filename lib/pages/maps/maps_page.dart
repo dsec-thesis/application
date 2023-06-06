@@ -136,7 +136,7 @@ class _MapsPageState extends State<MapsPage> {
   void initState() {
     super.initState();
     _futureProvider = _initPlaceProvider(widget.apiKey);
-    markerProvider = Get.put(MarkersProvider(widget.apiKey, context));
+    markerProvider = Get.put(MarkersProvider(context));
   }
 
   @override
@@ -417,8 +417,8 @@ class _MapsPageState extends State<MapsPage> {
     return StatefulBuilder(
       builder: (BuildContext context, StateSetter setState) {
         return showIntroModal && widget.introModalWidgetBuilder != null
-            ? Stack(
-                children: const [
+            ? const Stack(
+                children: [
                   Positioned(
                     top: 0,
                     right: 0,

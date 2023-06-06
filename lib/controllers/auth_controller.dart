@@ -90,8 +90,7 @@ class AppUserController extends GetxController {
       final cognitoPlugin =
           Amplify.Auth.getPlugin(AmplifyAuthCognito.pluginKey);
       final result = await cognitoPlugin.fetchAuthSession();
-      //testAPI(_apiUrl, result.userPoolTokensResult.value.accessToken.raw);
-      return result.userPoolTokensResult.value.accessToken.raw;
+      return result.userPoolTokensResult.value.accessToken.toJson();
     } on AuthException catch (e) {
       logger.e('Error retrieving auth session: ${e.message}');
     }

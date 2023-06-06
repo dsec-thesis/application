@@ -53,7 +53,7 @@ class _MainComponentState extends State<MainComponent> {
     const HomePage(),
     LoginPage(),
     BookedPage(),
-    ProfileScreen(),
+    const ProfileScreen(),
   ];
 
   void setIndex(index) {
@@ -139,19 +139,7 @@ class _MainComponentState extends State<MainComponent> {
   }
 }
 
-class SavesPage extends StatelessWidget {
-  const SavesPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Saves Page'),
-    );
-  }
-}
-
 class BookedPage extends StatelessWidget {
-  //final AuthController _authController = Get.find();
   final AppUserController _authController = Get.find();
 
   BookedPage({super.key});
@@ -208,16 +196,3 @@ class BookedPage extends StatelessWidget {
     );
   }
 }
-
-// class ProfilePage extends StatelessWidget {
-//   ProfilePage({super.key});
-//   final AppUserController _authController = Get.find();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ElevatedButton(
-//       onPressed: () => _authController.fetchCognitoAuthSession(),
-//       child: const Text('Test API'),
-//     );
-//   }
-// }
