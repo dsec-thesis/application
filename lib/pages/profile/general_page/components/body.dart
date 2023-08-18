@@ -3,9 +3,11 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_parking_app/pages/profile/jwt_token/jwt_component.dart';
 import 'package:smart_parking_app/pages/profile/jwt_token/test_booking.dart';
+import 'package:smart_parking_app/utils/tools.dart';
 
 import '../../../../controllers/auth_controller.dart';
 import '../../../../routes/routes.dart';
+import '../../../reservation/confirmation_component.dart';
 import '../../../reservation/screen_booking_details.dart';
 import '../../account_details/account_page.dart';
 import '../../jwt_token/get_parking_by_location.dart';
@@ -38,7 +40,15 @@ class Body extends StatelessWidget {
             text: "FAQs",
             icon: "assets/icons/Question mark.svg",
             press: () {
-              Get.to(() => BookParkingDetailsWidget(title: "EJEMPLO", parkingName: "EJEMPLO PARKING NAME",parkinglotId: "12345678", description: "Ejemplo de descripcion"),);
+              ConfirmationDialog(
+                title: 'Confirmación',
+                question: '¿Desea cancelar la reserva?',
+                onConfirm: () {
+                  // Lógica que se ejecutará cuando se confirme la acción en el diálogo
+                  // Por ejemplo, puedes cancelar la reserva aquí
+                },
+              ).show(context);
+              //Get.to(() => BookParkingDetailsWidget(title: "EJEMPLO", parkingName: "EJEMPLO PARKING NAME",parkinglotId: "12345678", description: "Ejemplo de descripcion"),);
             },
           ),
           ProfileMenu(

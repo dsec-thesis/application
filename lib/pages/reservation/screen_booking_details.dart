@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:smart_parking_app/pages/reservation/confirmation_component.dart';
 import 'package:smart_parking_app/utils/tools.dart';
 
 import '../../main.dart';
@@ -114,35 +115,39 @@ class _BookParkingDetailsWidgetState extends State<BookParkingDetailsWidget> {
                 height: SizeConfig.screenWidth * .1,
               ),
               ButtonRow(
-                onReservePressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return Dialog(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(16),
-                          child: SizedBox(
-                            width: SizeConfig.screenWidth * .7,
-                            height: SizeConfig.screenHeight * .5,
-                            child: AnimatedReservation(
-                              parkinglotId: widget.parkinglotId,
-                              description: widget.description,
-                              duration: isFreeReservation == false
-                                  ? selectedTime
-                                  : null,
-                              closeParentScreen: () {
-                                Get.to(() => const MainComponent());
-                              },
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  );
-                },
+                onReservePressed: () => ConfirmationDialog(
+                        onConfirm: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Dialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: SizedBox(
+                                    width: SizeConfig.screenWidth * .7,
+                                    height: SizeConfig.screenHeight * .5,
+                                    child: AnimatedReservation(
+                                      parkinglotId: widget.parkinglotId,
+                                      description: widget.description,
+                                      duration: isFreeReservation == false
+                                          ? selectedTime
+                                          : null,
+                                      closeParentScreen: () {
+                                        Get.to(() => const MainComponent());
+                                      },
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        title: "Confirmación",
+                        question: "¿Desea crear la reserva?")
+                    .show(context),
               )
             ],
           ),
