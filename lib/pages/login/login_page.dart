@@ -57,7 +57,7 @@ class LoginPage extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(24, 0, 24, 32),
               child: GestureDetector(
                 onTap: () async {
-                  await _appUserController.handleLoginLogout();
+                  await _appUserController.socialSignIn();
                   if (_appUserController.isSignedIn.value) {
                     logger.d("inicio con Amplify exitoso");
                     Get.offAll(() => const MainComponent());

@@ -5,12 +5,14 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:smart_parking_app/pages/home/home_page.dart';
 import 'package:smart_parking_app/pages/login/login_page.dart';
+import 'package:smart_parking_app/pages/profile/general_page/profile_screen.dart';
 import 'package:smart_parking_app/routes/pages.dart';
 import 'package:smart_parking_app/routes/routes.dart';
 import 'package:smart_parking_app/utils/tools.dart';
 import 'package:wakelock/wakelock.dart';
 
 import 'controllers/auth_controller.dart';
+import 'pages/book/my_booking_component.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
@@ -29,6 +31,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return GetMaterialApp(
       initialRoute: Routes.SPLASH,
       debugShowCheckedModeBanner: false,
@@ -50,9 +53,9 @@ class _MainComponentState extends State<MainComponent> {
 
   final List<Widget> _pages = [
     const HomePage(),
-    LoginPage(),
+    const MyBookingScreen(),
     BookedPage(),
-    ProfilePage(),
+    const ProfileScreen(),
   ];
 
   void setIndex(index) {
@@ -138,19 +141,7 @@ class _MainComponentState extends State<MainComponent> {
   }
 }
 
-class SavesPage extends StatelessWidget {
-  const SavesPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Saves Page'),
-    );
-  }
-}
-
 class BookedPage extends StatelessWidget {
-  //final AuthController _authController = Get.find();
   final AppUserController _authController = Get.find();
 
   BookedPage({super.key});
@@ -204,19 +195,6 @@ class BookedPage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-class ProfilePage extends StatelessWidget {
-  ProfilePage({super.key});
-  final AppUserController _authController = Get.find();
-
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () => _authController.fetchCognitoAuthSession(),
-      child: const Text('Test API'),
     );
   }
 }

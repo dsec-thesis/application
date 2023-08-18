@@ -67,6 +67,12 @@ class _RequestPermissionPageState extends State<RequestPermissionPage>
             );
 
             break;
+          case PermissionStatus.denied:
+            break;
+          case PermissionStatus.restricted:
+            break;
+          case PermissionStatus.limited:
+            break;
         }
       },
     );

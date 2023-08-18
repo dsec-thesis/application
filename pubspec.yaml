@@ -41,6 +41,7 @@ dependencies:
   flutter_appauth: ^4.2.1
   flutter_config: ^2.0.0
   flutter_secure_storage: ^8.0.0
+  flutter_svg: ^2.0.5
   geolocator: ^9.0.2
   get: ^4.6.5
   get_storage: ^2.1.1
@@ -57,7 +58,9 @@ dependencies:
   shared_preferences: ^2.0.17
   smooth_page_indicator: ^1.0.0+2
   tuple: ^2.0.1
+  ulid: ^2.0.0
   uuid: ^3.0.7
+  rive: ^0.9.0
   wakelock: ^0.6.2
 
 dev_dependencies:
@@ -75,9 +78,15 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/onboarding/
-    - assets/images/varios/
-    - lib/controllers/amplifyconfiguration.dart
+  - assets/images/onboarding/
+  - assets/images/varios/
+  - assets/images/
+  - assets/
+  - assets/images/coche.jpg
+  - assets/images/no_data.jpg
+  - assets/icons/
+  - lib/controllers/amplifyconfiguration.dart
+  - assets/RiveAssets/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

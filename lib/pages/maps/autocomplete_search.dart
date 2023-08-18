@@ -11,22 +11,22 @@ import 'place_provider.dart';
 import 'search_provider.dart';
 
 class AutoCompleteSearch extends StatefulWidget {
-  const AutoCompleteSearch(
-      {Key? key,
-      required this.sessionToken,
-      required this.onPicked,
-      required this.appBarKey,
-      this.hintText = "Search here",
-      this.searchingText = "Searching...",
-      this.height = 40,
-      this.contentPadding = EdgeInsets.zero,
-      this.debounceMilliseconds = 750,
-      this.onSearchFailed,
-      required this.searchBarController,
-      this.initialSearchString,
-      this.searchForInitialValue = false,
-      this.autocompleteOnTrailingWhitespace = false})
-      : super(key: key);
+  const AutoCompleteSearch({
+    Key? key,
+    required this.sessionToken,
+    required this.onPicked,
+    required this.appBarKey,
+    this.hintText = "Ingrese su destino",
+    this.searchingText = "Buscando...",
+    this.height = 40,
+    this.contentPadding = EdgeInsets.zero,
+    this.debounceMilliseconds = 750,
+    this.onSearchFailed,
+    required this.searchBarController,
+    this.initialSearchString,
+    this.searchForInitialValue = false,
+    this.autocompleteOnTrailingWhitespace = false,
+  }) : super(key: key);
 
   final String? sessionToken;
   final String? hintText;

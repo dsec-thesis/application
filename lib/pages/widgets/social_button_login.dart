@@ -72,7 +72,7 @@ class SocialSignInButton extends StatelessWidget {
           ],
         );
       default:
-        return Row();
+        return const Row();
     }
   }
 }
