@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smart_parking_app/pages/book/parking_card_component.dart';
+import 'package:smart_parking_app/pages/reservation/confirmation_component.dart';
 import 'package:smart_parking_app/utils/tools.dart';
 
 import '../../controllers/reservation_controller.dart';
+import '../reservation/cancel_reservation_animation.dart';
 
 class MyBookingScreen extends StatefulWidget {
   const MyBookingScreen({super.key});
@@ -163,7 +165,33 @@ class OngoingBookingView extends GetWidget {
                                 "CANCELED"
                             ? true
                             : false,
-                    cancelBooking: () => logger.i("Terminar reservaaaaa"),
+                    cancelBooking: () => ConfirmationDialog(
+                      title: 'Confirmación',
+                      question: '¿Desea cancelar la reserva?',
+                      onConfirm: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Dialog(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(16),
+                                child: SizedBox(
+                                  width: SizeConfig.screenWidth * .7,
+                                  height: SizeConfig.screenHeight * .5,
+                                  child: CancelReservationAnimated(
+                                    bookingId: reservationController
+                                        .reservationsList[index].id,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                    ).show(context),
                     viewTicket: () {},
                   );
                 }

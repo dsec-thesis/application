@@ -77,7 +77,7 @@ class ParkingCard extends StatelessWidget {
   }
 
   Widget buildButtons(bool isExpired) {
-    return Container(
+    return SizedBox(
       height: SizeConfig.screenHeight * .05,
       child: Padding(
         padding: const EdgeInsets.only(left: 8.0, right: 8.0),
