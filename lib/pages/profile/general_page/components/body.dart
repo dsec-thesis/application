@@ -48,21 +48,6 @@ class Body extends StatelessWidget {
                   // Por ejemplo, puedes cancelar la reserva aquí
                 },
               ).show(context);
-              // showDialog(
-              //   context: context,
-              //   builder: (BuildContext context) {
-              //     return ConfirmationDialog(
-              //       title: 'Confirmación',
-              //       question: '¿Desea cancelar la reserva?',
-              //       onConfirm: () {
-              //         logger.i("asdsadsa");
-              //         // Lógica que se ejecutará cuando se confirme
-              //         // la acción en el diálogo
-              //         // Por ejemplo, puedes cancelar la reserva aquí
-              //       },
-              //     );
-              //   },
-              // );
               //Get.to(() => BookParkingDetailsWidget(title: "EJEMPLO", parkingName: "EJEMPLO PARKING NAME",parkinglotId: "12345678", description: "Ejemplo de descripcion"),);
             },
           ),
