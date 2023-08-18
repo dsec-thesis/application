@@ -12,6 +12,7 @@ import 'package:smart_parking_app/utils/tools.dart';
 import 'package:wakelock/wakelock.dart';
 
 import 'controllers/auth_controller.dart';
+import 'pages/book/my_booking_component.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); // Required by FlutterConfig
@@ -30,6 +31,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return GetMaterialApp(
       initialRoute: Routes.SPLASH,
       debugShowCheckedModeBanner: false,
@@ -51,7 +53,7 @@ class _MainComponentState extends State<MainComponent> {
 
   final List<Widget> _pages = [
     const HomePage(),
-    LoginPage(),
+    const MyBookingScreen(),
     BookedPage(),
     const ProfileScreen(),
   ];

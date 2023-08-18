@@ -10,7 +10,6 @@ import '../../utils/tools.dart';
 class SplashController extends ChangeNotifier {
   final Permission _locationPermission;
   final _preferences = OnBoardingController();
-  //final AuthController _login = Get.put(AuthController());
   final AppUserController _login = Get.put(AppUserController());
   String? _routeName;
 
@@ -21,7 +20,8 @@ class SplashController extends ChangeNotifier {
   void checkPermission() async {
     final isGranted = await _locationPermission.isGranted;
     final isOnboardingComplete = await _preferences.onboardingComplete();
-    final isLoginIn = _login.isSignedIn.value;
+    final isLoginIn = await _login.getUserStatus();
+    logger.i("VALOR VARIABLE isLoginIn: $isLoginIn");
 
     if (!isGranted) {
       logger.d("rutas a permisos");

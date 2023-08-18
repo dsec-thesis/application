@@ -1,18 +1,15 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:http/http.dart' as http;
+import 'package:smart_parking_app/utils/network_tool.dart';
 import 'package:smart_parking_app/utils/tools.dart';
 
-import 'auth_controller.dart';
-
 class ParkingController extends GetxController {
-  final AppUserController _authController = Get.find();
-  String token = "";
-  final baseUrl = "vmfj4o7v3m.execute-api.us-east-1.amazonaws.com";
-  var response;
+  late dynamic response;
+  final ApiHelper apiHelper = ApiHelper();
 
   Future<List<Map<String, dynamic>>> getNearestParkingsByLocation({
     required CameraPosition position,
@@ -21,28 +18,18 @@ class ParkingController extends GetxController {
     int limit = 20,
   }) async {
     try {
-      final uri = Uri.https(
-        baseUrl,
-        "/searcher",
-        {
-          "lat": position.target.latitude.toString(),
-          "lng": position.target.longitude.toString(),
-          "start_distance": startDistance.toString(),
-          "end_distance": endDistance.toString(),
-          "limit": limit.toString(),
-        },
-      );
-      token = (await _authController.getCognitoAccessToken())!;
-
-      response = await http.get(uri, headers: {
-        'Content-Type': 'application/json',
-        'accept': 'application/json',
-        'Authorization': token,
-      });
+      final queryParams = {
+            "lat": position.target.latitude.toString(),
+            "lng": position.target.longitude.toString(),
+            "start_distance": startDistance.toString(),
+            "end_distance": endDistance.toString(),
+            "limit": limit.toString(),
+          },
+          response = await apiHelper.sendRequest(HttpMethod.GET, "/searcher",
+              queryParams: queryParams);
 
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        logger.d("data $data");
+        final data = json.decode(utf8.decode(response.bodyBytes));
         final List<dynamic> parkinglots = data['parkinglots'];
         final List<Map<String, dynamic>> parsedParkinglots = parkinglots
             .map((parkinglot) => parkinglot as Map<String, dynamic>)
@@ -66,6 +53,8 @@ class ParkingController extends GetxController {
       Get.snackbar(
         "Error :(",
         "Hubo un problema al consultar los estacionamientos disponibles. Vuelva a intentar!",
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
       );
     }
     return [];

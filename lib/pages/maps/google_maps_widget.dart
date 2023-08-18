@@ -161,10 +161,10 @@ class GoogleMapWidget extends StatelessWidget {
     } else if (state == PinState.Idle) {
       return Stack(
         children: <Widget>[
-          Center(
+          const Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const <Widget>[
+              children: <Widget>[
                 Icon(Icons.place, size: 36, color: Colors.red),
                 SizedBox(height: 42),
               ],
@@ -185,10 +185,10 @@ class GoogleMapWidget extends StatelessWidget {
     } else {
       return Stack(
         children: <Widget>[
-          Center(
+          const Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const <Widget>[
+              children: <Widget>[
                 AnimatedPin(
                   child: Icon(Icons.place, size: 36, color: Colors.red),
                 ),
