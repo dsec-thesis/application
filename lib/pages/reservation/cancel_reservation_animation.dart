@@ -36,18 +36,19 @@ class _CancelReservationAnimated extends State<CancelReservationAnimated> {
   }
 
   Future<void> _cancellReservation() async {
-    var response = await _reservationController.deleteReservation(
-        widget.bookingId);
-    setState(() {
-      _isLoading = false;
-      _isSuccess = response;
-      if (_isSuccess) {
-        _onSucess();
-      } else {
-        _onFailed();
-      }
-      ;
-    });
+    var response =
+        await _reservationController.deleteReservation(widget.bookingId);
+    setState(
+      () {
+        _isLoading = false;
+        _isSuccess = response;
+        if (_isSuccess) {
+          _onSucess();
+        } else {
+          _onFailed();
+        }
+      },
+    );
   }
 
   void _loadRiveFile() async {
