@@ -44,16 +44,17 @@ class _AnimatedReservation extends State<AnimatedReservation> {
   Future<void> _createReservation() async {
     var response = await _reservationController.createReservation(
         widget.parkinglotId, widget.description, widget.duration);
-    setState(() {
-      _isLoading = false;
-      _isSuccess = response;
-      if (_isSuccess) {
-        _onSucess();
-      } else {
-        _onFailed();
-      }
-      ;
-    });
+    setState(
+      () {
+        _isLoading = false;
+        _isSuccess = response;
+        if (_isSuccess) {
+          _onSucess();
+        } else {
+          _onFailed();
+        }
+      },
+    );
   }
 
   void _loadRiveFile() async {

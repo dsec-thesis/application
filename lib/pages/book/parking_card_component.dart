@@ -61,7 +61,7 @@ class ParkingCard extends StatelessWidget {
                           reservationTime,
                         ),
                         Text(
-                          'Precio: ${price}',
+                          'Precio: $price',
                         ),
                       ],
                     ),
