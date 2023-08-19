@@ -74,4 +74,67 @@ class Reservation {
 
     return formattedExpiration;
   }
+
+  String formatTime() {
+    if (duration == null) {
+      return "Reserva Libre";
+    }
+
+    if (duration! < 60) {
+      return "$duration segundos";
+    } else if (duration! < 3600) {
+      final minutes = duration! ~/ 60;
+      return "$minutes minutos";
+    } else {
+      final hours = duration! ~/ 3600;
+      return "$hours horas";
+    }
+  }
+
+  String getCreationTime() {
+    String formattedCreation;
+    final int milliseconds = (created_on! * 1000).toInt();
+
+    // Convert to DateTime
+    final DateTime createdDateTime =
+        DateTime.fromMillisecondsSinceEpoch(milliseconds);
+
+    final bool isSameDay = DateTime.now().day == createdDateTime.day;
+    if (isSameDay) {
+      formattedCreation =
+          "${createdDateTime.hour.toString().padLeft(2, '0')}:${createdDateTime.minute.toString().padLeft(2, '0')}";
+    } else {
+      formattedCreation =
+          '${createdDateTime.day.toString().padLeft(2, '0')}/${createdDateTime.month.toString().padLeft(2, '0')}/${createdDateTime.year.toString().padLeft(4, '0')} '
+          '${createdDateTime.hour.toString().padLeft(2, '0')}:${createdDateTime.minute.toString().padLeft(2, '0')}:${createdDateTime.second.toString().padLeft(2, '0')}';
+    }
+
+    return formattedCreation;
+  }
+
+  String getExpirationTime() {
+    String formattedExpiration;
+
+    // Convert unixtime to milliseconds
+    final int milliseconds = (created_on! * 1000).toInt();
+
+    // Convert to DateTime
+    final DateTime createdDateTime =
+        DateTime.fromMillisecondsSinceEpoch(milliseconds);
+
+    final DateTime expirationDateTime =
+        createdDateTime.add(Duration(seconds: duration!.toInt()));
+
+    final bool isSameDay = DateTime.now().day == expirationDateTime.day;
+    if (isSameDay) {
+      formattedExpiration =
+          "${expirationDateTime.hour.toString().padLeft(2, '0')}:${expirationDateTime.minute.toString().padLeft(2, '0')}";
+    } else {
+      formattedExpiration =
+          '${expirationDateTime.day.toString().padLeft(2, '0')}/${expirationDateTime.month.toString().padLeft(2, '0')}/${expirationDateTime.year.toString().padLeft(4, '0')} '
+          '${expirationDateTime.hour.toString().padLeft(2, '0')}:${expirationDateTime.minute.toString().padLeft(2, '0')}:${expirationDateTime.second.toString().padLeft(2, '0')}';
+    }
+
+    return formattedExpiration;
+  }
 }
