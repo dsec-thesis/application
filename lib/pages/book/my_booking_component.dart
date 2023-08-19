@@ -3,10 +3,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:smart_parking_app/pages/book/parking_card_component.dart';
+import 'package:smart_parking_app/pages/book/ticket_booking.dart';
 import 'package:smart_parking_app/pages/reservation/confirmation_component.dart';
 import 'package:smart_parking_app/utils/tools.dart';
 
 import '../../controllers/reservation_controller.dart';
+import '../../utils/cellphone_tools.dart';
+import '../../utils/vehicle_tools.dart';
 import '../reservation/cancel_reservation_animation.dart';
 
 class MyBookingScreen extends StatefulWidget {
@@ -89,7 +92,7 @@ class NavBarItem extends StatelessWidget {
   final String label;
   final bool isSelected;
 
-  NavBarItem({
+  const NavBarItem({
     super.key,
     required this.label,
     required this.isSelected,
@@ -192,7 +195,43 @@ class OngoingBookingView extends GetWidget {
                         );
                       },
                     ).show(context),
-                    viewTicket: () {},
+                    viewTicket: () {
+                      Get.to(() => TicketParkingDetailsWidget(
+                            parkingName: reservationController
+                                .reservationsList[index]
+                                .parkingLotAssociated!
+                                .name,
+                            parkinglotId: reservationController
+                                .reservationsList[index]
+                                .parkingLotAssociated!
+                                .id,
+                            parkingStreet: reservationController
+                                .reservationsList[index]
+                                .parkingLotAssociated!
+                                .street,
+                            description:
+                                'Acerque su telefono al scanner cuando se encuentre en el estacionamiento',
+                            isExpired: false,
+                            reservationCreationTime: reservationController
+                                .reservationsList[index]
+                                .getCreationTime(),
+                            reservationExpirationTime: reservationController
+                                        .reservationsList[index].duration ==
+                                    null
+                                ? ''
+                                : reservationController.reservationsList[index]
+                                    .getExpirationTime(),
+                            durationReservationTime: reservationController
+                                .reservationsList[index]
+                                .formatTime(),
+                            price: 5,
+                            plate: VehicleBrands.generateLicensePlate(),
+                            bookingId: reservationController
+                                .reservationsList[index].id,
+                            userPhone:
+                                ArgentinePhoneNumbers.getRandomPhoneNumber(),
+                          ));
+                    },
                   );
                 }
                 return const SizedBox();
@@ -241,7 +280,43 @@ class BookingHistoryView extends StatelessWidget {
                             ? true
                             : false,
                     cancelBooking: () => logger.i("Terminar reservaaaaa"),
-                    viewTicket: () {},
+                    viewTicket: () {
+                      Get.to(() => TicketParkingDetailsWidget(
+                            parkingName: reservationController
+                                .reservationsList[index]
+                                .parkingLotAssociated!
+                                .name,
+                            parkinglotId: reservationController
+                                .reservationsList[index]
+                                .parkingLotAssociated!
+                                .id,
+                            parkingStreet: reservationController
+                                .reservationsList[index]
+                                .parkingLotAssociated!
+                                .street,
+                            description:
+                                'Acerque su telefono al scanner cuando se encuentre en el estacionamiento',
+                            isExpired: false,
+                            reservationCreationTime: reservationController
+                                .reservationsList[index]
+                                .getCreationTime(),
+                            reservationExpirationTime: reservationController
+                                        .reservationsList[index].duration ==
+                                    null
+                                ? ''
+                                : reservationController.reservationsList[index]
+                                    .getExpirationTime(),
+                            durationReservationTime: reservationController
+                                .reservationsList[index]
+                                .formatTime(),
+                            price: 5,
+                            plate: VehicleBrands.generateLicensePlate(),
+                            bookingId: reservationController
+                                .reservationsList[index].id,
+                            userPhone:
+                                ArgentinePhoneNumbers.getRandomPhoneNumber(),
+                          ));
+                    },
                   );
                 }
                 return const SizedBox();
