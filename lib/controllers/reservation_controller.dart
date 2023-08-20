@@ -51,6 +51,7 @@ class ReservationController extends GetxController {
 
       if (response.statusCode == 204) {
         try {
+          await Future.delayed(Duration(milliseconds: 500));
           final response = await apiHelper.sendRequest(
               HttpMethod.GET, "/bookings/$bookingId");
           if (response.statusCode == 200) {
